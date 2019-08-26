@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, Dimensions, ScrollView } from 'react-native';
 
 import BodyText from '../components/BodyText';
 import TitleText from '../components/TitleText';
@@ -8,15 +8,13 @@ import MainButton from '../components/MainButton';
 
 const GameOverScreen = props => {
     return (
-      // style applied to a component is not applied on the nested component but this rule is not applied for text
-      // as text can inherit the style from the parent text component <Text style={styles.text}><Text>{this text will have the style of the parent Text component}</Text></Text>
+      <ScrollView>
       <View style={styles.screen}>
         <TitleText>The Game is Over!</TitleText>
         <View style={styles.imageContainer}>
           <Image
             fadeDuration={2000} // default is 300ms
             source={require("../assets/success.png")}
-            // source={{uri: 'https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/00h0tVu/4k-time-lapse-the-clouds-moving-over-the-snow-mountain-at-mthook-new-zealand_n1x6lqen__F0000.png'}} // react native cannot determine the width and the height of the image is being loaded
             style={styles.image}
             resizeMode="cover"
           />
@@ -31,6 +29,7 @@ const GameOverScreen = props => {
         </View>
         <MainButton onPress={props.onRestart}>NEW GAME</MainButton>
       </View>
+      </ScrollView>
     );
 };
 
@@ -46,16 +45,16 @@ const styles = StyleSheet.create({
     },
     resultText:{
         textAlign: 'center',
-        fontSize: 20
+        fontSize: Dimensions.get('window').height < 400 ? 16 : 20
     },
     imageContainer:{
-        borderRadius: 200,
+        borderRadius: Dimensions.get('window').width * 0.7,
         borderWidth: 3,
         borderColor: 'black',
-        width: 300,
-        height: 300,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').width * 0.7,
         overflow: 'hidden',
-        marginVertical: 15
+        marginVertical: Dimensions.get('window').height / 30
     },
     highlight:{
         color: Colors.primary,
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
     },
     resultContainer: {
         marginHorizontal: 30,
-        marginVertical: 15
+        marginVertical: Dimensions.get('window').height / 60
     }
 });
 

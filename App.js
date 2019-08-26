@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import Header from './components/Header';
@@ -49,12 +49,13 @@ export default function App(props) {
   } else if(guessRound >0 ) {
     content = <GameOverScreen roundsNumber={guessRound} userNumber={userNumber} onRestart={configureNewGameHandler}/>
   }
-
+  // the safeAreaView is something like the View and can take the same styling but it will respect the nutch on Iphone or other phones 
+  // and it should wrap the entire application
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <Header title="Guess a Number"/>
       {content}
-    </View>
+    </SafeAreaView>
   );
 }
 
